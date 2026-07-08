@@ -1,0 +1,55 @@
+{
+  "model_label": "pie_9_heading",
+  "group_mdi_totals": {
+    "spatial": 0.6428753349428658,
+    "kinematic": 0.3414742659160657,
+    "pose": 0.015650399141068437
+  },
+  "top_features": [
+    {
+      "name": "delta_y_m",
+      "group": "spatial",
+      "importance": 0.41293162681967865
+    },
+    {
+      "name": "delta_x_m",
+      "group": "spatial",
+      "importance": 0.2299437081231871
+    },
+    {
+      "name": "v_ego_kmh",
+      "group": "kinematic",
+      "importance": 0.19165817802011054
+    },
+    {
+      "name": "trajectory_heading_cos",
+      "group": "kinematic",
+      "importance": 0.08979464243655973
+    },
+    {
+      "name": "trajectory_heading_sin",
+      "group": "kinematic",
+      "importance": 0.06002144545939546
+    },
+    {
+      "name": "alpha_L_deg",
+      "group": "pose",
+      "importance": 0.004781391146214936
+    },
+    {
+      "name": "theta_R_deg",
+      "group": "pose",
+      "importance": 0.004275368521558891
+    },
+    {
+      "name": "alpha_R_deg",
+      "group": "pose",
+      "importance": 0.003416723475324663
+    },
+    {
+      "name": "theta_L_deg",
+      "group": "pose",
+      "importance": 0.0031769159979699478
+    }
+  ]
+}

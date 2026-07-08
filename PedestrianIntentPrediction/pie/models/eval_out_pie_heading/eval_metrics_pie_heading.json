@@ -1,0 +1,107 @@
+{
+  "evaluation_protocol": "70/30 stratified pedestrian holdout; retrain on train split",
+  "model_type": "ma_rong_pie_9_heading",
+  "feature_names": [
+    "delta_y_m",
+    "delta_x_m",
+    "v_ego_kmh",
+    "trajectory_heading_sin",
+    "trajectory_heading_cos",
+    "alpha_L_deg",
+    "alpha_R_deg",
+    "theta_L_deg",
+    "theta_R_deg"
+  ],
+  "split_summary": {
+    "num_train_samples": 49291,
+    "num_test_samples": 21090,
+    "num_train_groups": 945,
+    "num_test_groups": 404,
+    "num_train_positives": 48200,
+    "num_test_positives": 20542,
+    "num_train_pos_groups": 920,
+    "num_test_pos_groups": 394,
+    "train_positive_rate": 0.9778661418920289,
+    "test_positive_rate": 0.9740161213845424,
+    "group_leakage": false,
+    "leaked_groups": []
+  },
+  "train_metrics": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "confusion_matrix": [
+      [
+        1091,
+        0
+      ],
+      [
+        0,
+        48200
+      ]
+    ],
+    "TP": 48200,
+    "FN": 0,
+    "FP": 0,
+    "TN": 1091,
+    "num_samples": 49291,
+    "positive_rate": 0.9778661418920289,
+    "false_positive_rate": 0.0,
+    "false_negative_rate": 0.0,
+    "pr_auc": 1.0,
+    "roc_auc": 1.0,
+    "auc": 1.0
+  },
+  "test_metrics": {
+    "accuracy": 0.9690848743480323,
+    "precision": 0.9738873534737444,
+    "recall": 0.9949372018303962,
+    "f1": 0.9842997495665575,
+    "confusion_matrix": [
+      [
+        0,
+        548
+      ],
+      [
+        104,
+        20438
+      ]
+    ],
+    "TP": 20438,
+    "FN": 104,
+    "FP": 548,
+    "TN": 0,
+    "num_samples": 21090,
+    "positive_rate": 0.9740161213845424,
+    "false_positive_rate": 1.0,
+    "false_negative_rate": 0.0050627981696037385,
+    "pr_auc": 0.9712202741950059,
+    "roc_auc": 0.4483784157364616,
+    "auc": 0.4483784157364616
+  },
+  "baseline_reference": {
+    "model": "rf_ma_rong_pie.joblib",
+    "feature_dim": 7,
+    "test_accuracy": 0.949,
+    "test_precision": 0.943,
+    "test_recall": 1.0,
+    "test_f1": 0.971,
+    "test_roc_auc": 0.983,
+    "test_pr_auc": 0.997
+  },
+  "paper_reference": {
+    "accuracy": 0.895,
+    "precision": 0.975,
+    "recall": 0.951,
+    "f1": 0.963,
+    "roc_auc": 0.992,
+    "n_estimators_paper": 320
+  },
+  "test_confusion": {
+    "TN": 0,
+    "FP": 548,
+    "FN": 104,
+    "TP": 20438
+  }
+}

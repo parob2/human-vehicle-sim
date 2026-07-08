@@ -1,0 +1,11 @@
+# PIE offline training / evaluation
+numpy>=1.24
+scikit-learn>=1.3
+opencv-python>=4.8
+matplotlib>=3.7
+joblib>=1.3
+PyYAML>=6.0
+ultralytics>=8.0
+
+# CARLA simulation (install CARLA Python API separately from your CARLA release)
+pygame>=2.5

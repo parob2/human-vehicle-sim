@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+
+# PIE dataset (third-party; obtain from https://github.com/aras62/PIE — not shipped in this repo)
+PIE_dataset/
+
+# Feature extraction caches (large JSONL)
+PedestrianIntentPrediction/pie/features_cache/
+
+# Simulation run outputs
+CarlaSim/simulation_captures/
+CarlaSim/eval_sim/captures/
+CarlaSim/eval_sim/results/
+
+# Model weights
+*.pt
+
+# Environment
+.env
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store

@@ -1,0 +1,8 @@
+tracker_type: bytetrack
+# Lower highs so small / distant CARLA peds still get a track id (was missing 2nd person in crosswalk)
+track_high_thresh: 0.12
+track_low_thresh: 0.04
+new_track_thresh: 0.08
+track_buffer: 90
+match_thresh: 0.75
+fuse_score: true

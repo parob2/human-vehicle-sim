@@ -1,0 +1,25 @@
+# RF models for eval_sim scenario matrix (PIE-only).
+# Each model is run against every scenario (S1–S6).
+#
+# PIP_RF_THRESHOLD overrides the threshold baked into the .joblib payload.
+
+defaults:
+  runs_per_scenario: 1
+  base_seed: 42
+
+models:
+  pie_7:
+    name: "PIE Ma-Rong 7-feature (paper) — threshold=0.5"
+    feature_dim: 7
+    model_path: PedestrianIntentPrediction/pie/models/rf_ma_rong_pie.joblib
+    env:
+      PIP_RF_MODEL: "{model_path}"
+      RF_INTENT_MODEL: ""
+
+  pie_9_heading:
+    name: "PIE Ma-Rong 9-feature (heading) — threshold=0.5"
+    feature_dim: 9
+    model_path: PedestrianIntentPrediction/pie/models/rf_ma_rong_pie_heading.joblib
+    env:
+      PIP_RF_MODEL: "{model_path}"
+      RF_INTENT_MODEL: ""

@@ -1,0 +1,131 @@
+# Offline hazard decision policy test cases (no CARLA required).
+# Each case defines pedestrian + ego state and expected brake / DENM behaviour.
+
+map_context:
+  master_range_m: 50.0
+  unsafe_ttc_s: 1.5
+  min_threat_speed_ms: 1.5
+  ttc_aeb_s: 1.5
+  ttc_high_s: 2.5
+  ttc_t0_s: 4.0
+
+cases:
+  - id: HDP01
+    description: CROSSING at TTC 4.0 s → MEDIUM brake + hazard DENM
+    ped:
+      ped_phase: CROSSING
+      intent_confirmed: true
+      path_conflict: true
+      is_on_crossing: true
+      dist_to_crossing_m: 2.0
+      speed_ms: 1.2
+    ego:
+      speed_ms: 5.0
+      dist_to_crossing_m: 20.0
+    expect:
+      brake_priority: MEDIUM
+      ego_brake_level: 0.2
+      hazard_active: true
+      send_denm: true
+
+  - id: HDP02
+    description: CROSSING at TTC 1.5 s → CRITICAL full brake
+    ped:
+      ped_phase: CROSSING
+      intent_confirmed: true
+      path_conflict: true
+      is_on_crossing: true
+      dist_to_crossing_m: 2.0
+      speed_ms: 1.2
+    ego:
+      speed_ms: 5.0
+      dist_to_crossing_m: 7.5
+    expect:
+      brake_priority: CRITICAL
+      ego_brake_level: 1.0
+
+  - id: HDP03
+    description: PREPARING only — no TTC brake, hazard DENM from intent
+    ped:
+      ped_phase: PREPARING
+      intent_proba: 0.9
+      intent_confirmed: true
+      path_conflict: true
+      is_on_crossing: false
+    ego:
+      speed_ms: 5.0
+      dist_to_crossing_m: 7.5
+    expect:
+      ego_brake_level: 0.0
+      brake_priority: LOW
+      hazard_active: true
+      send_denm: true
+
+  - id: HDP04
+    description: WAITING off-zone — no brake
+    ped:
+      ped_phase: WAITING
+      intent_confirmed: false
+      path_conflict: false
+      is_on_crossing: false
+    ego:
+      speed_ms: 8.0
+      dist_to_crossing_m: 10.0
+    expect:
+      ego_brake_level: 0.0
+      brake_priority: LOW
+
+  - id: HDP05
+    description: No path conflict — no brake even if CROSSING
+    ped:
+      ped_phase: CROSSING
+      intent_confirmed: true
+      path_conflict: false
+      is_on_crossing: true
+    ego:
+      speed_ms: 8.0
+      dist_to_crossing_m: 10.0
+    expect:
+      ego_brake_level: 0.0
+
+  - id: HDP06
+    description: Vehicle threat — robot hold
+    ped:
+      ped_phase: CROSSING
+      intent_confirmed: true
+      path_conflict: true
+      is_on_crossing: true
+    ego:
+      speed_ms: 8.0
+      dist_to_crossing_m: 9.6
+    expect:
+      vehicle_threat: true
+      suggested_hold_robot: true
+
+  - id: HDP07
+    description: Stopped ego — no brake
+    ped:
+      ped_phase: CROSSING
+      intent_confirmed: true
+      path_conflict: true
+      is_on_crossing: true
+    ego:
+      speed_ms: 0.2
+      dist_to_crossing_m: 5.0
+    expect:
+      ego_brake_level: 0.0
+
+  - id: HDP08
+    description: Out of master range — no brake, hazard DENM still active
+    ped:
+      ped_phase: CROSSING
+      intent_confirmed: true
+      path_conflict: true
+      is_on_crossing: true
+    ego:
+      speed_ms: 5.0
+      dist_to_crossing_m: 60.0
+    expect:
+      ego_brake_level: 0.0
+      hazard_active: true
+      send_denm: true

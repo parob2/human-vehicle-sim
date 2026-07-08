@@ -1,0 +1,128 @@
+# Thesis evaluation scenarios (eval_scenarios.odt)
+# Run full matrix (all scenarios × all RF models):
+#   python run_scenarios.py --all --all-models --runs 5 --analyze
+
+defaults:
+  map: trail24
+  runs_per_scenario: 5
+  base_seed: 42
+  ego_speed_kmh: 20
+  sim_max_duration_s: 35
+  collision_threshold_m: 0.5
+  safe_stop_min_dist_m: 0.5
+
+experimental_setup:
+  carla_version: "0.9.16"
+  weather: clear noon
+  fixed_seed: true
+  camera: "RSU fixed mount, analysis_interval_s=0.25"
+  hardware: "document at run time"
+
+scenarios:
+  S1:
+    name: Sidewalk walk (no crossing)
+    description: >
+      Pedestrian walks along the sidewalk from west to east without entering
+      the crossing polygon (negative RF / no-brake test).
+    category: non_crossing
+    ground_truth:
+      crossing_intent: false
+      expects_brake: false
+      expects_denm: false
+    env:
+      EGO_NAV_TARGET_SPEED_KMH: "20"
+    walker:
+      spawn_preset: sidewalk_walk
+      spawn_delay_s: 0
+      speed_ms: 1.2
+
+  S2:
+    name: Normal pedestrian crossing
+    description: >
+      Standard nearside crossing as in main.py — pedestrian enters the road
+      after a short delay while ego approaches at 20 km/h.
+    category: crossing
+    ground_truth:
+      crossing_intent: true
+      expects_brake: true
+      expects_safe_stop: true
+      expects_denm: true
+    env:
+      EGO_NAV_TARGET_SPEED_KMH: "20"
+    walker:
+      spawn_preset: nearside_off
+      spawn_delay_s: 3.0
+      speed_ms: 1.2
+
+  S3:
+    name: Two pedestrians talking (no crossing)
+    description: >
+      Two stationary pedestrians near the crossing — social interaction,
+      no crossing intent (RF false-positive test).
+    category: non_crossing
+    ground_truth:
+      crossing_intent: false
+      expects_brake: false
+      expects_denm: false
+    env:
+      EGO_NAV_TARGET_SPEED_KMH: "20"
+    walker:
+      spawn_preset: talking_pair
+      spawn_delay_s: 0
+      speed_ms: 0.0
+
+  S4:
+    name: Very slow crossing
+    description: >
+      Pedestrian crosses at very low speed (0.35 m/s) from the slow_crossing
+      spawn (intermediate position west of zone 1) — tests reaction to slow VRU.
+    category: crossing
+    ground_truth:
+      crossing_intent: true
+      expects_brake: true
+      expects_safe_stop: true
+    env:
+      EGO_NAV_TARGET_SPEED_KMH: "20"
+    walker:
+      spawn_preset: slow_crossing
+      spawn_delay_s: 3.0
+      speed_ms: 0.35
+
+  S5:
+    name: Multiple pedestrians crossing
+    description: >
+      Three pedestrians crossing simultaneously from nearside and farside
+      start points — highest-risk actor must be prioritised.
+    category: crossing
+    ground_truth:
+      crossing_intent: true
+      expects_brake: true
+      expects_safe_stop: true
+      expects_denm: true
+    env:
+      EGO_NAV_TARGET_SPEED_KMH: "20"
+    walker:
+      spawn_preset: multi_cross
+      spawn_delay_s: 2.0
+      speed_ms: 1.2
+
+  S6:
+    name: Running pedestrian crossing
+    description: >
+      Pedestrian crosses at 2.8 m/s from the running_cross spawn (east-adjacent
+      to zone 1, closer approach than S2) — late/emergency braking scenario.
+    category: crossing
+    ground_truth:
+      crossing_intent: true
+      expects_brake: true
+      expects_safe_stop: true
+    env:
+      EGO_NAV_TARGET_SPEED_KMH: "20"
+    walker:
+      spawn_preset: running_cross
+      spawn_delay_s: 3.0
+      speed_ms: 2.8
+
+etsi_requirements:
+  denm_generation_max_s: 1.0
+  cpm_min_hz: 1.0
